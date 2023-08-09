@@ -7,6 +7,9 @@ import GameLayout from "@/Layouts/GameLayout.vue";
     <Head title="Dashboard" />
 
     <GameLayout>
+        <template #canvas>
+            Animation goes here
+        </template>
         <div class="text-white">
          hello?
         </div>

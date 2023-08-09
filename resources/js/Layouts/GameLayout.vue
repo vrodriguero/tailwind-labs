@@ -12,7 +12,10 @@ import { Link } from '@inertiajs/vue3';
                 </Link>
             </div>
         </div>
-        <div class="w-full mt-6 px-6 py-4">
+        <div class="w-full mt-6 px-6 py-4 flex flex-col flex-grow">
+            <div class="flex flex-grow">
+                <slot name="canvas" />
+            </div>
             <slot />
         </div>
     </div>
