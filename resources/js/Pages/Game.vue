@@ -2,6 +2,7 @@
 import { Head } from '@inertiajs/vue3'
 import GameLayout from "@/Layouts/GameLayout.vue"
 import Level1 from "@/Components/Game/Level1.vue"
+import {ref} from "vue";
 
 const props = defineProps({
     level: {
@@ -10,6 +11,12 @@ const props = defineProps({
         default: 1,
     },
 });
+
+const level1 = ref(null)
+
+const complete = () => {
+    level1.value.startCompleteAnimation()
+}
 </script>
 
 <template>
@@ -17,10 +24,10 @@ const props = defineProps({
 
     <GameLayout>
         <template #canvas>
-            <Level1 />
+            <Level1 ref="level1"/>
         </template>
         <div class="text-white">
-            <button @click="startIdleAnimation" class="bg-gray-500 text-white px-4 py-2 rounded-md z-50">Level Completed ({{ level }})</button>
+            <button @click="complete" class="bg-gray-500 text-white px-4 py-2 rounded-md z-50">Level Completed ({{ level }})</button>
         </div>
     </GameLayout>
 </template>

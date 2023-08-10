@@ -1,30 +1,38 @@
 <script setup>
 import {ref} from "vue";
 
-const level = ref(1)
-
 const grayCat = ref(null)
+const grayCatLeg1 = ref(null)
+const grayCatLeg2 = ref(null)
 const orangeCat = ref(null)
+const orangeCatLeg1 = ref(null)
+const orangeCatLeg2 = ref(null)
 
-const emits = defineEmits(['hello'])
-
-const test = () => {
-    alert('hello')
-    console.log('completed animation')
+const startCompleteAnimation = () => {
+    alert('Meow! Level completed!')
     grayCat.value.classList.add('completed');
     orangeCat.value.classList.add('completed');
+    orangeCatLeg1.value.classList.add('completed');
+    orangeCatLeg2.value.classList.add('completed');
+    grayCatLeg1.value.classList.add('completed');
+    grayCatLeg2.value.classList.add('completed');
+
+    setTimeout(() => {
+        orangeCatLeg1.value.classList.remove('completed');
+        orangeCatLeg2.value.classList.remove('completed');
+        grayCatLeg1.value.classList.remove('completed');
+        grayCatLeg2.value.classList.remove('completed');
+    }, 2000)
 }
 
-const startIdleAnimation = () => {
-    test()
-    console.log('clicked')
-    emits('hello', level.value)
-}
+defineExpose({
+    startCompleteAnimation
+})
 </script>
 
 <template>
     <div class="w-full bg-blue-200 max-h-[50vh] flex items-end relative">
-        <div class="h-[5vh] bg-gray-300 w-full" @hello="test">
+        <div class="h-[5vh] bg-gray-300 w-full">
 
         </div>
         <svg class="absolute bottom-4 w-full" width="729" height="155" viewBox="0 0 729 155" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,8 +41,8 @@ const startIdleAnimation = () => {
                     <ellipse id="Ellipse 3" cx="73" cy="145.5" rx="45" ry="5.5" fill="#6B7280"/>
                     <g id="cat">
                         <path id="body" d="M20.9783 99.3914C20.9783 79.2645 38.3655 63.543 58.3908 65.5631L106.159 70.3819C122.523 72.0326 134.978 85.8075 134.978 102.255V102.255C134.978 119.947 120.636 134.289 102.944 134.289H54.9783C36.2006 134.289 20.9783 119.067 20.9783 100.289V99.3914Z" fill="#FB923C"/>
-                        <rect id="leg-back" x="37.9783" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 37.9783 122.125)" fill="#FB923C"/>
-                        <rect id="leg-front" x="85.9783" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 85.9783 122.125)" fill="#FB923C"/>
+                        <rect ref="orangeCatLeg1" id="leg-back" x="37.9783" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 37.9783 122.125)" fill="#FB923C"/>
+                        <rect ref="orangeCatLeg2" id="leg-front" x="85.9783" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 85.9783 122.125)" fill="#FB923C"/>
                         <g id="eye">
                             <path id="Vector 1" d="M126.977 93.7891H99.9783C99.9783 93.7891 99.9783 105.275 113.653 105.774C127.328 106.274 126.977 93.7891 126.977 93.7891Z" fill="white"/>
                             <path id="Vector 2" d="M126.978 93.7891H109.978C109.978 93.7891 109.978 101.446 118.588 101.779C127.199 102.112 126.978 93.7891 126.978 93.7891Z" fill="black"/>
@@ -73,8 +81,8 @@ const startIdleAnimation = () => {
                     <ellipse id="Ellipse 1" cx="582" cy="145.5" rx="45" ry="5.5" fill="#6B7280"/>
                     <g id="cat_3">
                         <path id="body_3" d="M529.978 99.3914C529.978 79.2645 547.365 63.543 567.391 65.5631L615.159 70.3819C631.523 72.0326 643.978 85.8075 643.978 102.255V102.255C643.978 119.947 629.636 134.289 611.944 134.289H563.978C545.201 134.289 529.978 119.067 529.978 100.289V99.3914Z" fill="#9CA3AF"/>
-                        <rect id="leg-back_3" x="546.978" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 546.978 122.125)" fill="#9CA3AF"/>
-                        <rect id="leg-front_3" x="594.978" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 594.978 122.125)" fill="#9CA3AF"/>
+                        <rect ref="grayCatLeg1" id="leg-back_3" x="546.978" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 546.978 122.125)" fill="#9CA3AF"/>
+                        <rect ref="grayCatLeg2" id="leg-front_3" x="594.978" y="122.125" width="20" height="23" rx="9" transform="rotate(-0.961192 594.978 122.125)" fill="#9CA3AF"/>
                         <g id="eye_3">
                             <path id="Vector 1_3" d="M635.977 93.7891H608.978C608.978 93.7891 608.978 105.275 622.653 105.774C636.328 106.274 635.977 93.7891 635.977 93.7891Z" fill="#6EE7B7"/>
                             <path id="Vector 2_3" d="M635.978 93.7891H618.978C618.978 93.7891 618.978 101.446 627.588 101.779C636.199 102.112 635.978 93.7891 635.978 93.7891Z" fill="black"/>
@@ -126,13 +134,6 @@ const startIdleAnimation = () => {
     animation: idle-body 2s infinite alternate-reverse;
 }
 
-//#leg-back, #leg-back_2, #leg-back_3, #leg-front, #leg-front_2, #leg-front_3
-#leg-back, #leg-back_2, #leg-back_3, #leg-front, #leg-front_2, #leg-front_3 {
-    transform-origin: center center;
-    transform-box: fill-box;
-    animation: moveLegs 1s infinite alternate-reverse;
-}
-
 #gray-cat.completed {
     transform-origin: center;
     transform-box: fill-box;
@@ -145,7 +146,10 @@ const startIdleAnimation = () => {
     animation: orange-walk 2s linear forwards;
 }
 
-#leg-back.completed, #leg-front.completed, #leg-back_3.completed, #leg-front_3.completed {
+#leg-back_3.completed,
+#leg-front_3.completed,
+#leg-back.completed ,
+#leg-front.completed {
     transform-origin: center center;
     transform-box: fill-box;
     animation: moveLegs .5s infinite alternate-reverse;
