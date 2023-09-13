@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from "vue";
-import {Head, router, useForm} from '@inertiajs/vue3';
+import {Head, useForm} from '@inertiajs/vue3';
 import Level2 from "@/Components/Game/Level2.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
 
@@ -13,23 +13,31 @@ const props = defineProps({
     },
 });
 
+const gameLayout = ref(null)
 const level2 = ref(null)
 const userInput = ref('');
 const errorMessage = ref();
 
 const complete = () => {
     if (userInput.value === 'flex-col-reverse') {
+        gameLayout.value.levelComplete();
         errorMessage.value = false
         level2.value.startCompleteAnimation();
     }
     else if (userInput.value === 'flex-col' || userInput.value === 'col-reverse') {
         errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
+        gameLayout.value.incorrectAnswer();
+
     }
     else if (userInput.value.length === 0) {
         errorMessage.value = "you need to write something!!"
+        gameLayout.value.incorrectAnswer();
+
     }
     else {
         errorMessage.value = "Nope! that's not it."
+        gameLayout.value.incorrectAnswer();
+
     }
 }
 
@@ -63,6 +71,9 @@ const nextLevel= () => {
     form.get(route('play.level', { level: nextLevel }));
 }
 
+const playBackground = () => {
+    gameLayout.value.playBackground()
+}
 </script>
 
 <template>
@@ -70,15 +81,14 @@ const nextLevel= () => {
 
     <GameLayout>
         <template #canvas>
-            <Level2 ref="level2"/>
+            <Level2 ref="level2" @click="playBackground"/>
             <component :is="'Game' + level" ref="currentLevel" />
 
         </template>
         <div class="flex gap-8 mx-auto my-10">
             <form>
                 <div class="flex flex-row text-white text-lg items-center gap-3">
-
-                    <div class="flex flex-col">
+                    <div class="flex flex-col gap-1">
                         <div class="flex flex-row">
                             <p class=" text-gray-500">1</p>
                             <div class="flex flex-row mx-4">
@@ -96,39 +106,36 @@ const nextLevel= () => {
                                 <p class="text-gray-500"> &gt; </p>
                             </div>
                         </div>
-
                         <div class="flex flex-row">
                             <p class="text-gray-500">2</p>
-                            <div class="flex flex-row mx-6">
+                            <div class="flex flex-row mx-8">
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
-                                cat gray
+                                gray cat
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
                             </div>
                         </div>
                         <div class="flex flex-row">
                             <p class="text-gray-500">3</p>
-                            <div class="flex flex-row mx-6">
+                            <div class="flex flex-row mx-8">
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
-                                cat black
+                                black cat
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
                             </div>
                         </div>
                         <div class="flex flex-row">
                             <p class="text-gray-500">4</p>
-                            <div class="flex flex-row mx-6">
+                            <div class="flex flex-row mx-8">
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
-                                cat orange
+                                orange cat
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
                             </div>
                         </div>
-
                         <div class="flex flex-row">
                             <p class="text-gray-500">5</p>
                             <div class="flex flex-row mx-4">
                                 <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p><p class="text-gray-500"> &gt; </p>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div v-if="errorMessage">

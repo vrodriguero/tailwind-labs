@@ -82,22 +82,54 @@ const playBackground = () => {
         <div class="flex gap-8 mx-auto my-10">
             <form>
                 <div class="flex flex-row text-white text-lg items-center gap-3">
-                    <p class=" text-gray-500">1</p>
-                    <div class="flex">
-                        <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p>
-                        <p class="text-gray-400 ml-2"> class=</p>
-                        <p class="text-blue-300 font-light">
-                            "flex
-                            <input
-                                v-model="userInput"
-                                :style="{width: inputWidth()}"
-                                class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
-                            >
-                            "
-                        </p>
-                        <p class="text-gray-500"> &gt; </p>
-                        <p class="mx-2">Help cats to eat in their bowl</p>
-                        <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p><p class="text-gray-500"> &gt; </p>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex flex-row">
+                            <p class=" text-gray-500">1</p>
+                            <div class="flex flex-row mx-4">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p>
+                                <p class="text-gray-400 ml-2"> class=</p>
+                                <p class="text-blue-300 font-light">
+                                    "flex
+                                    <input
+                                            v-model="userInput"
+                                            :style="{width: inputWidth()}"
+                                            class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
+                                    >
+                                    "
+                                </p>
+                                <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">2</p>
+                            <div class="flex flex-row mx-8">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
+                                orange cat
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">3</p>
+                            <div class="flex flex-row mx-8">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
+                                black cat
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">4</p>
+                            <div class="flex flex-row mx-8">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
+                                gray cat
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">5</p>
+                            <div class="flex flex-row mx-4">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p><p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div v-if="errorMessage">
