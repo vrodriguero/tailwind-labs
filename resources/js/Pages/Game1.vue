@@ -3,12 +3,8 @@ import { ref, watch } from "vue";
 import { Head, useForm } from '@inertiajs/vue3';
 import Level1 from "@/Components/Game/Level1.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
-import background from '@/../../public/audio/background.mp3';
-import correct from '@/../../public/audio/correct.wav';
-import incorrect from '@/../../public/audio/incorrect.wav';
-import chatChatter from '@/../../public/audio/catChatter.wav';
-import chatPurr from '@/../../public/audio/catPurr.wav';
 
+const gameLayout = ref(null)
 const props = defineProps({
     level: {
         type: Number,
@@ -20,43 +16,24 @@ const props = defineProps({
 const level1 = ref(null)
 const userInput = ref('');
 const errorMessage = ref();
-const backgroundAudio = new Audio(background);
-
-const correctAudio = new Audio(correct);
-const incorrectAudio = new Audio(incorrect);
-const catChatterAudio = new Audio(chatChatter);
-const catPurrAudio = new Audio(chatPurr);
-
-const levelCompleted = ref(false);
-
-const playBackground = () => {
-    if (levelCompleted.value === false) {
-        backgroundAudio.volume = 0.1;
-        backgroundAudio.play();
-    }
-}
 
 const complete = () => {
     if (userInput.value === 'flex-row-reverse') {
-        correctAudio.play();
-        backgroundAudio.pause();
-        catPurrAudio.volume = 0.1
-        catPurrAudio.play();
+        gameLayout.value.levelComplete();
         errorMessage.value = false
         level1.value.startCompleteAnimation();
-        levelCompleted.value = true;
     }
     else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
         errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
-        incorrectAudio.play();
+        gameLayout.value.incorrectAnswer();
     }
     else if (userInput.value.length === 0) {
         errorMessage.value = "you need to write something!!"
-        incorrectAudio.play();
+        gameLayout.value.incorrectAnswer();
     }
     else {
         errorMessage.value = "Nope! that's not it."
-        incorrectAudio.play();
+        gameLayout.value.incorrectAnswer();
     }
 }
 
@@ -64,7 +41,9 @@ let showHint = ref(false)
 
 const openHint = () => {
     showHint.value = ! showHint.value
-    catChatterAudio.play();
+    if (showHint.value) {
+        gameLayout.value.catChatter();
+    }
 }
 
 const form = useForm({})
@@ -86,12 +65,16 @@ const inputWidth = () => {
 watch(userInput, () => {
     inputWidth()
 })
+
+const playBackground = () => {
+    gameLayout.value.playBackground()
+}
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <GameLayout>
+    <GameLayout ref="gameLayout">
         <template #canvas>
             <Level1 ref="level1" @click="playBackground"/>
             <component :is="'Game' + level" ref="currentLevel" />
