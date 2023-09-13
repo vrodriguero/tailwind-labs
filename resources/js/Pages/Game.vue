@@ -21,24 +21,7 @@ const errorMessage = ref();
 let levelConfig = levels;
 
 const complete = () => {
-    levelConfig[0].completed(userInput, errorMessage, level)
-    if (userInput.value === 'flex-row-reverse') {
-        gameLayout.value.levelComplete();
-        errorMessage.value = false
-        level1.value.startCompleteAnimation();
-    }
-    else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
-        errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
-        gameLayout.value.incorrectAnswer();
-    }
-    else if (userInput.value.length === 0) {
-        errorMessage.value = "you need to write something!!"
-        gameLayout.value.incorrectAnswer();
-    }
-    else {
-        errorMessage.value = "Nope! that's not it."
-        gameLayout.value.incorrectAnswer();
-    }
+    levelConfig[0].completed(userInput, errorMessage, level, gameLayout)
 }
 
 let showHint = ref(false)
