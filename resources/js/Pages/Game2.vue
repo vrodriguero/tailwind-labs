@@ -157,7 +157,7 @@ const playBackground = () => {
                 </div>
             </form>
             <div class="flex flex-col gap-2 border-2 border-gray-600 mx-auto justify-center p-4 text-gray-400 text-lg bg-gray-800">
-                <h1 class="font-bold text-xl">Level 1: Flex Direction</h1>
+                <h1 class="font-bold text-xl">Level 2: Flex Direction</h1>
                 <p> Helps Cats to reach their bowls! </p>
                 <p> you need to use flex direction to control the direction of cats 🙂</p>
             </div>

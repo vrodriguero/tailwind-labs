@@ -150,10 +150,11 @@ const playBackground = () => {
                     </button>
                 </div>
             </form>
-            <div class="border-2 border-gray-600 mx-auto p-8 text-gray-400 text-lg bg-gray-800">
-                <h1 class="font-bold text-xl my-3">Level 1: Flex Direction</h1>
-                <p>you need to use flex direction to control the direction of cats</p>
-            </div>
+          <div class="flex flex-col gap-2 border-2 border-gray-600 mx-auto justify-center p-4 text-gray-400 text-lg bg-gray-800">
+            <h1 class="font-bold text-xl">Level 1: Flex Direction</h1>
+            <p> Helps Cats to reach their bowls! </p>
+            <p> you need to use flex direction to control the direction of cats!</p>
+          </div>
 
         </div>
         <div v-if="showHint" class="group w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
