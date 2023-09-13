@@ -18,11 +18,11 @@ const userInput = ref('');
 const errorMessage = ref();
 
 const complete = () => {
-    if (userInput.value === 'flex-row-reverse') {
+    if (userInput.value === 'flex-col-reverse') {
         errorMessage.value = false
         level2.value.startCompleteAnimation();
     }
-    else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
+    else if (userInput.value === 'flex-col' || userInput.value === 'col-reverse') {
         errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
     }
     else if (userInput.value.length === 0) {
@@ -77,22 +77,58 @@ const nextLevel= () => {
         <div class="flex gap-8 mx-auto my-10">
             <form>
                 <div class="flex flex-row text-white text-lg items-center gap-3">
-                    <p class=" text-gray-500">1</p>
-                    <div class="flex">
-                        <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p>
-                        <p class="text-gray-400 ml-2"> class=</p>
-                        <p class="text-blue-300 font-light">
-                            "flex
-                            <input
-                                v-model="userInput"
-                                :style="{width: inputWidth()}"
-                                class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
-                            >
-                            "
-                        </p>
-                        <p class="text-gray-500"> &gt; </p>
-                        <p class="mx-2">Help cats to eat in their bowl</p>
-                        <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p><p class="text-gray-500"> &gt; </p>
+
+                    <div class="flex flex-col">
+                        <div class="flex flex-row">
+                            <p class=" text-gray-500">1</p>
+                            <div class="flex flex-row mx-4">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p>
+                                <p class="text-gray-400 ml-2"> class=</p>
+                                <p class="text-blue-300 font-light">
+                                    "flex
+                                    <input
+                                        v-model="userInput"
+                                        :style="{width: inputWidth()}"
+                                        class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
+                                    >
+                                    "
+                                </p>
+                                <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">2</p>
+                            <div class="flex flex-row mx-6">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
+                                cat gray
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">3</p>
+                            <div class="flex flex-row mx-6">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
+                                cat black
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">4</p>
+                            <div class="flex flex-row mx-6">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> div </p> <p class="text-gray-500"> &gt; </p>
+                                cat orange
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p> <p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-row">
+                            <p class="text-gray-500">5</p>
+                            <div class="flex flex-row mx-4">
+                                <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p><p class="text-gray-500"> &gt; </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div v-if="errorMessage">
@@ -113,20 +149,16 @@ const nextLevel= () => {
                     </button>
                 </div>
             </form>
-            <div class="border-2 border-gray-600 mx-auto p-8 text-gray-400 text-lg bg-gray-800">
-                <h1 class="font-bold text-xl my-3">Level 1: Flex Direction</h1>
-                <p>you need to use flex direction to control the direction of cats</p>
+            <div class="flex flex-col gap-2 border-2 border-gray-600 mx-auto justify-center p-4 text-gray-400 text-lg bg-gray-800">
+                <h1 class="font-bold text-xl">Level 1: Flex Direction</h1>
+                <p> Helps Cats to reach their bowls! </p>
+                <p> you need to use flex direction to control the direction of cats 🙂</p>
             </div>
 
         </div>
-        <div v-if="showHint" class="group w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
-            <p class="group-hover:hidden transition delay-700 duration-300 ease-in-out">
-                Just kidding! <br>
-                you need to use row-reverse to make the cats eat in their bowl
-            </p>
-            <p class="hidden group-hover:block transition delay-700 duration-300 ease-in-out">
-
-                Meow meow meow meow meow meow meow <br> meow meow meow meow !
+        <div v-if="showHint" class="w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
+            <p class="">
+                you need to use col-reverse to make the cats eat in their bowl
             </p>
         </div>
 

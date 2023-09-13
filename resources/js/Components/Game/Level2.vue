@@ -31,8 +31,8 @@ defineExpose({
 </script>
 
 <template>
-    <div class="w-full bg-blue-200 max-h-[50vh] flex items-end relative">
-        <svg class="absolute bottom-4 w-full" width="736" height="463" viewBox="0 0 736 463" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="w-full bg-blue-200 flex items-end relative">
+        <svg class="w-full" width="736" height="463" viewBox="0 0 736 463" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="cats">
                 <g id="orange-cat" ref="orangeCat">
                     <ellipse id="Ellipse 3" cx="307" cy="402.5" rx="45" ry="5.5" fill="#6B7280"/>
