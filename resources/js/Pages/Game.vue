@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from "vue";
 import { Head } from '@inertiajs/vue3';
-import Level1 from "@/Components/Game/Level1.vue"
+import Level from "@/Components/Game/Level.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
 
 const props = defineProps({
@@ -12,17 +12,17 @@ const props = defineProps({
     },
 });
 
-const level1 = ref(null)
+const level = ref(null)
 const userInput = ref('');
 const errorMessage = ref();
 
 let levelConfig = [
     {
         title: 'Level 1',
-        completed: (inputValue) => {
+        completed: () => {
             if (userInput.value === 'flex-row-reverse') {
                 errorMessage.value = false
-                level1.value.startCompleteAnimation();
+                level.value.startCompleteAnimation();
             }
             else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
                 errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
@@ -34,8 +34,8 @@ let levelConfig = [
                 errorMessage.value = "Nope! that's not it."
             }
         },
-        carOrder: [0, 1, 2], // orange, black, grey
-        bowlOrder: [2, 1, 0],
+        catOrder: ['Orange', 'Black', 'Gray'], // orange, black, grey
+        bowlOrder: ['Black', 'Orange', 'Gray'],
         orangeCatWalk: {
             moveTo: '512px',
             startingLocation: '200px',
@@ -52,19 +52,7 @@ let levelConfig = [
 ]
 
 const complete = () => {
-    if (userInput.value === 'flex-row-reverse') {
-        errorMessage.value = false
-        level1.value.startCompleteAnimation();
-    }
-    else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
-        errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
-    }
-    else if (userInput.value.length === 0) {
-        errorMessage.value = "you need to write something!!"
-    }
-    else {
-        errorMessage.value = "Nope! that's not it."
-    }
+    levelConfig[0].completed()
 }
 
 let showHint = ref(false)
@@ -89,7 +77,11 @@ watch(userInput, () => {
 
     <GameLayout>
         <template #canvas>
-            <Level1 ref="level1"/>
+            <Level
+                ref="level"
+                :catOrder="levelConfig[0].catOrder"
+                :bowlOrder="levelConfig[0].bowlOrder"
+            />
         </template>
         <div class="flex gap-8 mx-auto my-10">
             <form>

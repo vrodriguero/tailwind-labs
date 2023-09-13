@@ -1,4 +1,6 @@
 <script setup>
+import * as CatIcons from '@/Components/Cats'
+import * as BowlIcons from '@/Components/Bowls'
 import {ref} from "vue";
 
 const grayCat = ref(null)
@@ -8,7 +10,10 @@ const orangeCat = ref(null)
 const orangeCatLeg1 = ref(null)
 const orangeCatLeg2 = ref(null)
 
-const length = '512px';
+const props = defineProps({
+    catOrder: Array,
+    bowlOrder: Array,
+})
 
 const startCompleteAnimation = () => {
     alert('Meow! Level completed!')
@@ -34,15 +39,21 @@ defineExpose({
 
 <template>
     <div class="w-full bg-blue-200 max-h-[50vh] flex items-end relative">
-        <div class="h-[5vh] bg-red-300 w-full">
-
-        </div>
+        <div class="h-[5vh] bg-red-300 w-full"></div>
         <svg class="absolute bottom-4 w-full" width="729" height="155" viewBox="0 0 729 155" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="cats">
-
+                <g v-for="cat in catOrder">
+                    <component
+                        :is="CatIcons[cat]"
+                    />
+                </g>
+                <g v-for="cat in bowlOrder">
+                    <component
+                        :is="BowlIcons[cat]"
+                    />
+                </g>
             </g>
         </svg>
-
     </div>
 </template>
 
@@ -109,7 +120,7 @@ defineExpose({
         transform: translateX(0);
     }
     100% {
-        transform: translateX(v-bind('length'));
+        transform: translateX(512px);
     }
 }
 
