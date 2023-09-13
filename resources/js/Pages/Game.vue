@@ -35,12 +35,7 @@ const openHint = () => {
 
 const form = useForm({})
 
-const nextLevel= () => {
-    const currentLevel = parseInt(props.currentLevel);
-    const nextLevel = currentLevel + 1;
-
-    form.get(route('play.level', { level: nextLevel }));
-}
+const nextLevel= () => form.get(route('play.level', { level: props.currentLevel + 1 }));
 
 const inputWidth = () => {
     if (userInput.value.length === 0) {

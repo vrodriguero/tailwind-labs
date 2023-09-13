@@ -10,7 +10,7 @@ class ShowGameController extends Controller
     public function __invoke($level): Response
     {
         return Inertia::render('Game', [
-            'currentLevel' => $level,
+            'currentLevel' => intval($level),
         ]);
     }
 }
