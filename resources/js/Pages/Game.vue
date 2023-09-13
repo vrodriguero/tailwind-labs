@@ -1,5 +1,6 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
+import Level1 from "@/Components/Game/Level1.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
 import {ref} from "vue";
 
@@ -12,9 +13,22 @@ const props = defineProps({
 });
 
 const level1 = ref(null)
+const userInput = ref('');
+const errorMessage = ref('');
 
 const complete = () => {
-    level1.value.startCompleteAnimation()
+    if (userInput.value === 'flex-row-reverse') {
+        // first clear the error message then start the animation
+        errorMessage.value = '';
+        level1.value.startCompleteAnimation();
+    }
+    if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
+        errorMessage.value = 'you are this 👌🏼close to the answer. Try again!';
+    }
+    else {
+        errorMessage.value = 'Nope! that\'s not it.';
+
+    }
 }
 
 let showHint = ref(false)
@@ -39,7 +53,10 @@ const openHint = () => {
                         <p class="text-gray-400 ml-2"> class=</p>
                         <p class="text-blue-300 font-light">
                             "flex
-                            <input class="p-0 -mt-1 ml-2 w-24 text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60">
+                            <input
+                                v-model="userInput"
+                                class="p-0 -mt-1 ml-2 w-32 text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
+                            >
                             "
                         </p>
                         <p class="text-gray-500"> &gt; </p>
@@ -47,20 +64,40 @@ const openHint = () => {
                         <p class="text-gray-500"> &lt; </p><p class="text-pink-500"> /div </p><p class="text-gray-500"> &gt; </p>
                     </div>
                 </div>
+                <div v-if="errorMessage">
+                    <p  class="text-red-500 text-sm m-2">{{ errorMessage }}</p>
+                </div>
                 <div class="flex flex-col text-gray-700 w-fit">
-                    <button class="bg-blue-300 text-sm px-6 py-1 mt-5 rounded-full">Submit</button>
-                    <button class="bg-blue-300 text-sm px-6 py-1 mt-5 rounded-full" @click.prevent="openHint">need a paw  🐾 ?</button>
+
+                    <button
+                        @click.prevent="complete"
+                        class="bg-blue-300 text-sm px-6 py-1 mt-5 rounded-full"
+                    >
+                        Submit
+                    </button>
+                    <button
+                        @click.prevent="openHint"
+                        class="bg-blue-300 text-sm px-6 py-1 mt-5 rounded-full"
+                    >
+                        need a paw  🐾 ?
+                    </button>
                 </div>
             </form>
             <div class="border-2 border-gray-600 mx-auto p-8 text-gray-400 text-lg bg-gray-800">
-                <h1 class="font-bold text-xl">Level 1</h1>
-                <p>this the explanation of the game</p>
+                <h1 class="font-bold text-xl my-3">Level 1: Flex Direction</h1>
+                <p>you need to use flex direction to control the direction of cats</p>
             </div>
 
         </div>
         <div v-if="showHint" class="group w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
-            <p class="group-hover:hidden transition delay-700 duration-300 ease-in-out">Meow meow meow meow meow meow meow <br> meow meow meow meow !</p>
-            <p class="hidden group-hover:block transition delay-700 duration-300 ease-in-out"> Just kidding! </p>
+            <p class="group-hover:hidden transition delay-700 duration-300 ease-in-out">
+                Just kidding! <br>
+                you need to use row-reverse to make the cats eat in their bowl
+            </p>
+            <p class="hidden group-hover:block transition delay-700 duration-300 ease-in-out">
+
+                Meow meow meow meow meow meow meow <br> meow meow meow meow !
+            </p>
         </div>
     </GameLayout>
 </template>
