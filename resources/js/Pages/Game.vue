@@ -16,6 +16,41 @@ const level1 = ref(null)
 const userInput = ref('');
 const errorMessage = ref();
 
+let levelConfig = [
+    {
+        title: 'Level 1',
+        completed: (inputValue) => {
+            if (userInput.value === 'flex-row-reverse') {
+                errorMessage.value = false
+                level1.value.startCompleteAnimation();
+            }
+            else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
+                errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
+            }
+            else if (userInput.value.length === 0) {
+                errorMessage.value = "you need to write something!!"
+            }
+            else {
+                errorMessage.value = "Nope! that's not it."
+            }
+        },
+        carOrder: [0, 1, 2], // orange, black, grey
+        bowlOrder: [2, 1, 0],
+        orangeCatWalk: {
+            moveTo: '512px',
+            startingLocation: '200px',
+        },
+        greyCatWalk: {
+            moveTo: '512px',
+            startingLocation: '200px',
+        },
+        blackCatWalk: {
+            moveTo: '512px',
+            startingLocation: '200px',
+        },
+    }
+]
+
 const complete = () => {
     if (userInput.value === 'flex-row-reverse') {
         errorMessage.value = false
