@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ShowGameController extends Controller
 {
-    public function __invoke(): Response
+    public function __invoke($level): Response
     {
-        return Inertia::render('Game', [
-            'level' => 1,
+        $componentName = "Game{$level}";
+
+        return Inertia::render($componentName, [
+            'level' => $level,
         ]);
     }
 }

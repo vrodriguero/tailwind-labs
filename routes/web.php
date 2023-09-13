@@ -25,7 +25,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/play', \App\Http\Controllers\ShowGameController::class)->name('play');
+Route::get('/play/{level}', [\App\Http\Controllers\ShowGameController::class, '__invoke'])->name('play.level');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

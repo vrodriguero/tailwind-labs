@@ -1,58 +1,36 @@
 <script setup>
 import { ref, watch } from "vue";
-import { Head } from '@inertiajs/vue3';
-import Level from "@/Components/Game/Level.vue"
+import {Head, router, useForm} from '@inertiajs/vue3';
+import Level2 from "@/Components/Game/Level2.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
+
 
 const props = defineProps({
     level: {
         type: Number,
         required: true,
-        default: 1,
+        default: 2,
     },
 });
 
-const level = ref(null)
+const level2 = ref(null)
 const userInput = ref('');
 const errorMessage = ref();
 
-let levelConfig = [
-    {
-        title: 'Level 1',
-        completed: () => {
-            if (userInput.value === 'flex-row-reverse') {
-                errorMessage.value = false
-                level.value.startCompleteAnimation();
-            }
-            else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
-                errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
-            }
-            else if (userInput.value.length === 0) {
-                errorMessage.value = "you need to write something!!"
-            }
-            else {
-                errorMessage.value = "Nope! that's not it."
-            }
-        },
-        catOrder: ['Orange', 'Black', 'Gray'], // orange, black, grey
-        bowlOrder: ['Black', 'Orange', 'Gray'],
-        orangeCatWalk: {
-            moveTo: '512px',
-            startingLocation: '200px',
-        },
-        greyCatWalk: {
-            moveTo: '512px',
-            startingLocation: '200px',
-        },
-        blackCatWalk: {
-            moveTo: '512px',
-            startingLocation: '200px',
-        },
-    }
-]
-
 const complete = () => {
-    levelConfig[0].completed()
+    if (userInput.value === 'flex-row-reverse') {
+        errorMessage.value = false
+        level2.value.startCompleteAnimation();
+    }
+    else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
+        errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
+    }
+    else if (userInput.value.length === 0) {
+        errorMessage.value = "you need to write something!!"
+    }
+    else {
+        errorMessage.value = "Nope! that's not it."
+    }
 }
 
 let showHint = ref(false)
@@ -70,6 +48,21 @@ const inputWidth = () => {
 watch(userInput, () => {
     inputWidth()
 })
+
+const form = useForm({})
+const previousLevel= () => {
+    const currentLevel = parseInt(props.level);
+    const previousLevel = currentLevel - 1;
+
+    form.get(route('play.level', { level: previousLevel }));
+}
+const nextLevel= () => {
+    const currentLevel = parseInt(props.level);
+    const nextLevel = currentLevel + 1;
+
+    form.get(route('play.level', { level: nextLevel }));
+}
+
 </script>
 
 <template>
@@ -77,11 +70,9 @@ watch(userInput, () => {
 
     <GameLayout>
         <template #canvas>
-            <Level
-                ref="level"
-                :catOrder="levelConfig[0].catOrder"
-                :bowlOrder="levelConfig[0].bowlOrder"
-            />
+            <Level2 ref="level2"/>
+            <component :is="'Game' + level" ref="currentLevel" />
+
         </template>
         <div class="flex gap-8 mx-auto my-10">
             <form>
@@ -137,6 +128,19 @@ watch(userInput, () => {
 
                 Meow meow meow meow meow meow meow <br> meow meow meow meow !
             </p>
+        </div>
+
+        <div class="flex flex-row gap-2 mx-auto">
+            <button
+                @click="previousLevel"
+                class="bg-gray-300 py-2 px-6 rounded-2xl">
+                Previous level
+            </button>
+            <button
+                @click="nextLevel"
+                class="bg-blue-300 py-2 px-6 rounded-2xl">
+                Next level
+            </button>
         </div>
     </GameLayout>
 </template>
