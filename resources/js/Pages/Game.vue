@@ -5,6 +5,7 @@ import Level from "@/Components/Game/Level.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
 import { levels } from './levels.js'
 
+const gameLayout = ref(null)
 const props = defineProps({
     currentLevel: {
         type: Number,
@@ -21,12 +22,32 @@ let levelConfig = levels;
 
 const complete = () => {
     levelConfig[0].completed(userInput, errorMessage, level)
+    if (userInput.value === 'flex-row-reverse') {
+        gameLayout.value.levelComplete();
+        errorMessage.value = false
+        level1.value.startCompleteAnimation();
+    }
+    else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
+        errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
+        gameLayout.value.incorrectAnswer();
+    }
+    else if (userInput.value.length === 0) {
+        errorMessage.value = "you need to write something!!"
+        gameLayout.value.incorrectAnswer();
+    }
+    else {
+        errorMessage.value = "Nope! that's not it."
+        gameLayout.value.incorrectAnswer();
+    }
 }
 
 let showHint = ref(false)
 
 const openHint = () => {
     showHint.value = ! showHint.value
+    if (showHint.value) {
+        gameLayout.value.catChatter();
+    }
 }
 
 const form = useForm({})
@@ -48,15 +69,20 @@ const inputWidth = () => {
 watch(userInput, () => {
     inputWidth()
 })
+
+const playBackground = () => {
+    gameLayout.value.playBackground()
+}
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <GameLayout>
+    <GameLayout ref="gameLayout">
         <template #canvas>
             <Level
                 ref="level"
+                @click="playBackground"
                 :catOrder="levelConfig[currentLevel-1].catOrder"
                 :bowlOrder="levelConfig[currentLevel-1].bowlOrder"
             />
