@@ -1,3 +1,29 @@
+<script setup>
+
+import {ref, watch} from "vue";
+
+let props = defineProps({
+    modelValue: Boolean
+})
+
+const orangeCat = ref(null)
+const orangeCatLeg1 = ref(null)
+const orangeCatLeg2 = ref(null)
+
+watch(() => props.modelValue,
+    () => {
+    orangeCat.value.classList.add('completed')
+    orangeCatLeg1.value.classList.add('completed')
+    orangeCatLeg2.value.classList.add('completed')
+
+    setTimeout(() => {
+        orangeCat.value.classList.remove('completed')
+        orangeCatLeg1.value.classList.remove('completed')
+        orangeCatLeg2.value.classList.remove('completed')
+    }, 2000)
+})
+</script>
+
 <template>
     <g id="orange-cat" ref="orangeCat">
         <ellipse id="Ellipse 3" cx="73" cy="145.5" rx="45" ry="5.5" fill="#6B7280"/>
@@ -20,3 +46,11 @@
         </g>
     </g>
 </template>
+
+<style>
+#orange-cat.completed {
+    transform-origin: center center;
+    transform-box: fill-box;
+    animation: orange-walk 2s linear forwards;
+}
+</style>

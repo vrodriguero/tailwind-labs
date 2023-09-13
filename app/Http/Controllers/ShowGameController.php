@@ -9,9 +9,7 @@ class ShowGameController extends Controller
 {
     public function __invoke($level): Response
     {
-        $componentName = "Game{$level}";
-
-        return Inertia::render($componentName, [
+        return Inertia::render('Game', [
             'level' => $level,
         ]);
     }

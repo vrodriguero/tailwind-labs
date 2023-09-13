@@ -1,3 +1,23 @@
+<script setup>
+
+import {ref, watch} from "vue";
+
+let props = defineProps({
+    modelValue: Boolean
+})
+
+const grayCat = ref(null)
+const grayCatLeg1 = ref(null)
+const grayCatLeg2 = ref(null)
+
+watch(() => props.modelValue,
+    () => {
+        grayCat.value.classList.add('completed')
+        grayCatLeg1.value.classList.add('completed')
+        grayCatLeg2.value.classList.add('completed')
+    })
+</script>
+
 <template>
     <g id="gray-cat" ref="grayCat">
         <ellipse id="Ellipse 1" cx="582" cy="145.5" rx="45" ry="5.5" fill="#6B7280"/>
@@ -20,3 +40,11 @@
         </g>
     </g>
 </template>
+
+<style>
+#gray-cat.completed {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: gray-walk 2s linear forwards;
+}
+</style>

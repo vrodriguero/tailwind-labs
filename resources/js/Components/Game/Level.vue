@@ -3,32 +3,20 @@ import * as CatIcons from '@/Components/Cats'
 import * as BowlIcons from '@/Components/Bowls'
 import {ref} from "vue";
 
-const grayCat = ref(null)
-const grayCatLeg1 = ref(null)
-const grayCatLeg2 = ref(null)
-const orangeCat = ref(null)
-const orangeCatLeg1 = ref(null)
-const orangeCatLeg2 = ref(null)
-
 const props = defineProps({
     catOrder: Array,
     bowlOrder: Array,
 })
 
+const moveCat = ref(false);
+
 const startCompleteAnimation = () => {
     alert('Meow! Level completed!')
-    grayCat.value.classList.add('completed');
-    orangeCat.value.classList.add('completed');
-    orangeCatLeg1.value.classList.add('completed');
-    orangeCatLeg2.value.classList.add('completed');
-    grayCatLeg1.value.classList.add('completed');
-    grayCatLeg2.value.classList.add('completed');
+
+    moveCat.value = true
 
     setTimeout(() => {
-        orangeCatLeg1.value.classList.remove('completed');
-        orangeCatLeg2.value.classList.remove('completed');
-        grayCatLeg1.value.classList.remove('completed');
-        grayCatLeg2.value.classList.remove('completed');
+        moveCat.value = false
     }, 2000)
 }
 
@@ -45,6 +33,7 @@ defineExpose({
                 <g v-for="cat in catOrder">
                     <component
                         :is="CatIcons[cat]"
+                        v-model="moveCat"
                     />
                 </g>
                 <g v-for="cat in bowlOrder">
@@ -68,18 +57,6 @@ defineExpose({
     transform-origin: center center;
     transform-box: fill-box;
     animation: idle-body 2s infinite alternate-reverse;
-}
-
-#gray-cat.completed {
-    transform-origin: center;
-    transform-box: fill-box;
-    animation: gray-walk 2s linear forwards;
-}
-
-#orange-cat.completed {
-    transform-origin: center center;
-    transform-box: fill-box;
-    animation: orange-walk 2s linear forwards;
 }
 
 #leg-back_3.completed,
