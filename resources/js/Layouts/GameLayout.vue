@@ -20,6 +20,7 @@ const playBackground = () => {
     if (levelCompleted.value === false) {
         backgroundAudio.volume = 0.1;
         backgroundAudio.play();
+        backgroundAudio.loop = true;
     }
 }
 
