@@ -1,8 +1,8 @@
 <script setup>
+import { ref, watch } from "vue";
 import { Head } from '@inertiajs/vue3';
 import Level1 from "@/Components/Game/Level1.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
-import {ref} from "vue";
 
 const props = defineProps({
     level: {
@@ -14,20 +14,21 @@ const props = defineProps({
 
 const level1 = ref(null)
 const userInput = ref('');
-const errorMessage = ref('');
+const errorMessage = ref();
 
 const complete = () => {
     if (userInput.value === 'flex-row-reverse') {
-        // first clear the error message then start the animation
-        errorMessage.value = '';
+        errorMessage.value = false
         level1.value.startCompleteAnimation();
     }
-    if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
-        errorMessage.value = 'you are this 👌🏼close to the answer. Try again!';
+    else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
+        errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
+    }
+    else if (userInput.value.length === 0) {
+        errorMessage.value = "you need to write something!!"
     }
     else {
-        errorMessage.value = 'Nope! that\'s not it.';
-
+        errorMessage.value = "Nope! that's not it."
     }
 }
 
@@ -35,6 +36,17 @@ let showHint = ref(false)
 const openHint = () => {
     showHint.value = ! showHint.value
 }
+
+const inputWidth = () => {
+    if (userInput.value.length === 0) {
+        return '100px';
+    }
+    return userInput.value.length * 10 + 'px';
+}
+
+watch(userInput, () => {
+    inputWidth()
+})
 </script>
 
 <template>
@@ -55,7 +67,8 @@ const openHint = () => {
                             "flex
                             <input
                                 v-model="userInput"
-                                class="p-0 -mt-1 ml-2 w-32 text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
+                                :style="{width: inputWidth()}"
+                                class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
                             >
                             "
                         </p>
@@ -68,7 +81,6 @@ const openHint = () => {
                     <p  class="text-red-500 text-sm m-2">{{ errorMessage }}</p>
                 </div>
                 <div class="flex flex-col text-gray-700 w-fit">
-
                     <button
                         @click.prevent="complete"
                         class="bg-blue-300 text-sm px-6 py-1 mt-5 rounded-full"
