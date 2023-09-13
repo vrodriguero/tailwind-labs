@@ -17,7 +17,6 @@ watch(() => props.modelValue,
     orangeCatLeg2.value.classList.add('completed')
 
     setTimeout(() => {
-        orangeCat.value.classList.remove('completed')
         orangeCatLeg1.value.classList.remove('completed')
         orangeCatLeg2.value.classList.remove('completed')
     }, 2000)

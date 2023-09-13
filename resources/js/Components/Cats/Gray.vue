@@ -15,6 +15,11 @@ watch(() => props.modelValue,
         grayCat.value.classList.add('completed')
         grayCatLeg1.value.classList.add('completed')
         grayCatLeg2.value.classList.add('completed')
+
+        setTimeout(() => {
+            grayCatLeg1.value.classList.remove('completed')
+            grayCatLeg2.value.classList.remove('completed')
+        }, 2000)
     })
 </script>
 

@@ -6,7 +6,7 @@ import GameLayout from "@/Layouts/GameLayout.vue";
 import { levels } from './levels.js'
 
 const props = defineProps({
-    level: {
+    currentLevel: {
         type: Number,
         required: true,
         default: 1,
@@ -32,7 +32,7 @@ const openHint = () => {
 const form = useForm({})
 
 const nextLevel= () => {
-    const currentLevel = parseInt(props.level);
+    const currentLevel = parseInt(props.currentLevel);
     const nextLevel = currentLevel + 1;
 
     form.get(route('play.level', { level: nextLevel }));
@@ -57,8 +57,8 @@ watch(userInput, () => {
         <template #canvas>
             <Level
                 ref="level"
-                :catOrder="levelConfig[0].catOrder"
-                :bowlOrder="levelConfig[0].bowlOrder"
+                :catOrder="levelConfig[currentLevel-1].catOrder"
+                :bowlOrder="levelConfig[currentLevel-1].bowlOrder"
             />
         </template>
         <div class="flex gap-8 mx-auto my-10">
@@ -101,15 +101,15 @@ watch(userInput, () => {
                 </div>
             </form>
             <div class="border-2 border-gray-600 mx-auto p-8 text-gray-400 text-lg bg-gray-800">
-                <h1 class="font-bold text-xl my-3">Level 1: Flex Direction</h1>
-                <p>you need to use flex direction to control the direction of cats</p>
+                <h1 class="font-bold text-xl my-3">{{ levelConfig[currentLevel - 1].title }}</h1>
+                <p>{{ levelConfig[currentLevel - 1].description }}</p>
             </div>
 
         </div>
         <div v-if="showHint" class="group w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
             <p class="group-hover:hidden transition delay-700 duration-300 ease-in-out">
                 Just kidding! <br>
-                you need to use row-reverse to make the cats eat in their bowl
+                {{ levelConfig[currentLevel-1].hint }}
             </p>
             <p class="hidden group-hover:block transition delay-700 duration-300 ease-in-out">
 

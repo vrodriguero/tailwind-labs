@@ -1,6 +1,8 @@
 export const levels = [
     {
-        title: 'Level 1',
+        title: 'Level 1: Flex Direction',
+        description: 'You need to use flex direction to control the direction of cats',
+        hint: 'You need to use row-reverse to make the cats eat in their bowl',
         completed: (userInput, errorMessage, level) => {
             if (userInput.value === 'flex-row-reverse') {
                 errorMessage.value = false
