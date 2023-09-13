@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from "vue";
-import { Head } from '@inertiajs/vue3';
+import { Head, useForm } from '@inertiajs/vue3';
 import Level1 from "@/Components/Game/Level1.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
 
@@ -33,8 +33,18 @@ const complete = () => {
 }
 
 let showHint = ref(false)
+
 const openHint = () => {
     showHint.value = ! showHint.value
+}
+
+const form = useForm({})
+
+const nextLevel= () => {
+    const currentLevel = parseInt(props.level);
+    const nextLevel = currentLevel + 1;
+
+    form.get(route('play.level', { level: nextLevel }));
 }
 
 const inputWidth = () => {
@@ -55,6 +65,7 @@ watch(userInput, () => {
     <GameLayout>
         <template #canvas>
             <Level1 ref="level1"/>
+            <component :is="'Game' + level" ref="currentLevel" />
         </template>
         <div class="flex gap-8 mx-auto my-10">
             <form>
@@ -110,6 +121,14 @@ watch(userInput, () => {
 
                 Meow meow meow meow meow meow meow <br> meow meow meow meow !
             </p>
+        </div>
+
+        <div class="flex flex-row mx-auto">
+            <button
+                @click="nextLevel"
+                class="bg-blue-300 py-2 px-6 rounded-2xl">
+                Next level
+            </button>
         </div>
     </GameLayout>
 </template>
