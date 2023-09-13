@@ -35,7 +35,7 @@ const openHint = () => {
 
 const form = useForm({})
 
-const nextLevel= () => form.get(route('play.level', { level: props.currentLevel + 1 }));
+const nextLevel= () => form.get(route('play.level', { level: props.currentLevel + 1 }))
 
 const inputWidth = () => {
     if (userInput.value.length === 0) {
@@ -48,9 +48,7 @@ watch(userInput, () => {
     inputWidth()
 })
 
-const playBackground = () => {
-    gameLayout.value.playBackground()
-}
+const playBackground = () => gameLayout.value.playBackground()
 </script>
 
 <template>
@@ -108,8 +106,8 @@ const playBackground = () => {
                 <h1 class="font-bold text-xl my-3">{{ levelConfig[currentLevel - 1].title }}</h1>
                 <p>{{ levelConfig[currentLevel - 1].description }}</p>
             </div>
-
         </div>
+
         <div v-if="showHint" class="group w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
             <p class="group-hover:hidden transition delay-700 duration-300 ease-in-out">
                 Just kidding! <br>

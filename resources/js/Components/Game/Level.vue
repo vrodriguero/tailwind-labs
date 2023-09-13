@@ -1,12 +1,17 @@
 <script setup>
-import * as CatIcons from '@/Components/Cats'
+// import * as CatIcons from '@/Components/Cats'
 import * as BowlIcons from '@/Components/Bowls'
 import {ref} from "vue";
+import Black from "../Cats/Black.vue";
+import Gray from "../Cats/Gray.vue";
+import Orange from "../Cats/Orange.vue";
 
 const props = defineProps({
     catOrder: Array,
     bowlOrder: Array,
 })
+
+console.log(props.catOrder)
 
 const moveCat = ref(false);
 
@@ -26,23 +31,11 @@ defineExpose({
 </script>
 
 <template>
-    <div class="w-full bg-blue-200 max-h-[50vh] flex items-end relative">
-        <div class="h-[5vh] bg-red-300 w-full"></div>
-        <svg class="absolute bottom-4 w-full" width="729" height="155" viewBox="0 0 729 155" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g id="cats">
-                <g v-for="cat in catOrder">
-                    <component
-                        :is="CatIcons[cat]"
-                        v-model="moveCat"
-                    />
-                </g>
-                <g v-for="cat in bowlOrder">
-                    <component
-                        :is="BowlIcons[cat]"
-                    />
-                </g>
-            </g>
-        </svg>
+    <div class="bg-blue-200 h-full">
+        <div class="w-3/4">sky stuff</div>
+        <div class="bg-red-200">
+            Content
+        </div>
     </div>
 </template>
 

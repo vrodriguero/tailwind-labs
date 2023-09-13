@@ -57,11 +57,13 @@ defineExpose({
                 </Link>
             </div>
         </div>
-        <div class="w-full mt-6 px-6 py-4 flex flex-col flex-grow">
-            <div class="flex flex-grow">
+        <div class="w-full h-screen mt-6 px-6 py-4">
+            <div>
                 <slot name="canvas" />
             </div>
-            <slot />
+            <div>
+                <slot />
+            </div>
         </div>
     </div>
 </template>

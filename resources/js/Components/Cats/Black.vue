@@ -1,3 +1,28 @@
+<script setup>
+
+import {ref, watch} from "vue";
+
+let props = defineProps({
+    modelValue: Boolean
+})
+
+const blackCat = ref(null)
+const blackCatLeg1 = ref(null)
+const blackCatLeg2 = ref(null)
+
+watch(() => props.modelValue,
+    () => {
+        blackCat.value.classList.add('completed')
+        blackCatLeg1.value.classList.add('completed')
+        blackCatLeg2.value.classList.add('completed')
+
+        setTimeout(() => {
+            blackCatLeg1.value.classList.remove('completed')
+            blackCatLeg2.value.classList.remove('completed')
+        }, 2000)
+    })
+</script>
+
 <template>
     <g id="black-cat">
         <ellipse id="Ellipse 2" cx="331" cy="147.5" rx="45" ry="5.5" fill="#6B7280"/>
@@ -20,3 +45,11 @@
         </g>
     </g>
 </template>
+
+<style>
+#black-cat.completed {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: gray-walk 2s linear forwards;
+}
+</style>
