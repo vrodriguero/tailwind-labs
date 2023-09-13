@@ -15,6 +15,8 @@ class ShowGameController extends Controller
 {
     public function __invoke(): Response
     {
-        return Inertia::render('Game');
+        return Inertia::render('Game', [
+            'level' => 1,
+        ]);
     }
 }

@@ -3,6 +3,20 @@ import { Head } from '@inertiajs/vue3';
 import GameLayout from "@/Layouts/GameLayout.vue";
 import {ref} from "vue";
 
+const props = defineProps({
+    level: {
+        type: Number,
+        required: true,
+        default: 1,
+    },
+});
+
+const level1 = ref(null)
+
+const complete = () => {
+    level1.value.startCompleteAnimation()
+}
+
 let showHint = ref(false)
 const openHint = () => {
     showHint.value = ! showHint.value
@@ -14,7 +28,7 @@ const openHint = () => {
 
     <GameLayout>
         <template #canvas>
-            Animation goes here
+            <Level1 ref="level1"/>
         </template>
         <div class="flex gap-8 mx-auto my-10">
             <form>
