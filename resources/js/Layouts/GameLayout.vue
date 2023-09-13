@@ -2,7 +2,7 @@
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import { ref } from "vue";
 import { Link } from '@inertiajs/vue3';
-import background from '@/../../public/audio/background.mp3';
+import background from '@/../../public/audio/background.wav';
 import correct from '@/../../public/audio/correct.wav';
 import incorrect from '@/../../public/audio/incorrect.wav';
 import chatChatter from '@/../../public/audio/catChatter.wav';
