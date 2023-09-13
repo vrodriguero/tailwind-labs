@@ -4,6 +4,7 @@ import { Head, useForm } from '@inertiajs/vue3';
 import Level1 from "@/Components/Game/Level1.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
 
+const gameLayout = ref(null)
 const props = defineProps({
     level: {
         type: Number,
@@ -18,17 +19,21 @@ const errorMessage = ref();
 
 const complete = () => {
     if (userInput.value === 'flex-row-reverse') {
+        gameLayout.value.levelComplete();
         errorMessage.value = false
         level1.value.startCompleteAnimation();
     }
     else if (userInput.value === 'flex-row' || userInput.value === 'row-reverse') {
         errorMessage.value = "you are this 👌🏼 close to the answer. Try again!"
+        gameLayout.value.incorrectAnswer();
     }
     else if (userInput.value.length === 0) {
         errorMessage.value = "you need to write something!!"
+        gameLayout.value.incorrectAnswer();
     }
     else {
         errorMessage.value = "Nope! that's not it."
+        gameLayout.value.incorrectAnswer();
     }
 }
 
@@ -36,6 +41,9 @@ let showHint = ref(false)
 
 const openHint = () => {
     showHint.value = ! showHint.value
+    if (showHint.value) {
+        gameLayout.value.catChatter();
+    }
 }
 
 const form = useForm({})
@@ -57,14 +65,18 @@ const inputWidth = () => {
 watch(userInput, () => {
     inputWidth()
 })
+
+const playBackground = () => {
+    gameLayout.value.playBackground()
+}
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <GameLayout>
+    <GameLayout ref="gameLayout">
         <template #canvas>
-            <Level1 ref="level1"/>
+            <Level1 ref="level1" @click="playBackground"/>
             <component :is="'Game' + level" ref="currentLevel" />
         </template>
         <div class="flex gap-8 mx-auto my-10">
