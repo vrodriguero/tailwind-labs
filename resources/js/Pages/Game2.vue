@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import {Head, useForm} from '@inertiajs/vue3';
 import Level2 from "@/Components/Game/Level2.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
+import LevelMenu from "@/Components/LevelMenu.vue";
 
 
 const props = defineProps({
@@ -77,14 +78,14 @@ const playBackground = () => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="'Level' + level" />
 
-    <GameLayout>
+    <GameLayout ref="gameLayout">
         <template #canvas>
             <Level2 ref="level2" @click="playBackground"/>
             <component :is="'Game' + level" ref="currentLevel" />
-
         </template>
+
         <div class="flex gap-8 mx-auto my-10">
             <form>
                 <div class="flex flex-row text-white text-lg items-center gap-3">
@@ -161,7 +162,7 @@ const playBackground = () => {
                 <p> Helps Cats to reach their bowls! </p>
                 <p> you need to use flex direction to control the direction of cats 🙂</p>
             </div>
-
+            <LevelMenu/>
         </div>
         <div v-if="showHint" class="w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
             <p class="">

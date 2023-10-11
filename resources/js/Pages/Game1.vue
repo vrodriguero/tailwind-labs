@@ -3,6 +3,7 @@ import { ref, watch } from "vue";
 import { Head, useForm } from '@inertiajs/vue3';
 import Level1 from "@/Components/Game/Level1.vue"
 import GameLayout from "@/Layouts/GameLayout.vue";
+import LevelMenu from "@/Components/LevelMenu.vue";
 
 const gameLayout = ref(null)
 const props = defineProps({
@@ -72,7 +73,7 @@ const playBackground = () => {
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head :title="'Level' + level" />
 
     <GameLayout ref="gameLayout">
         <template #canvas>
@@ -91,9 +92,9 @@ const playBackground = () => {
                                 <p class="text-blue-300 font-light">
                                     "flex
                                     <input
-                                            v-model="userInput"
-                                            :style="{width: inputWidth()}"
-                                            class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
+                                         v-model="userInput"
+                                         :style="{width: inputWidth()}"
+                                         class="p-0 -mt-1 ml-2 text-md text-center text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-60"
                                     >
                                     "
                                 </p>
@@ -150,12 +151,12 @@ const playBackground = () => {
                     </button>
                 </div>
             </form>
-          <div class="flex flex-col gap-2 border-2 border-gray-600 mx-auto justify-center p-4 text-gray-400 text-lg bg-gray-800">
-            <h1 class="font-bold text-xl">Level 1: Flex Direction</h1>
-            <p> Helps Cats to reach their bowls! </p>
-            <p> you need to use flex direction to control the direction of cats!</p>
-          </div>
-
+            <div class="flex flex-col gap-2 border-2 border-gray-600 mx-auto justify-center p-4 text-gray-400 text-lg bg-gray-800">
+                <h1 class="font-bold text-xl">Level 1: Flex Direction</h1>
+                <p> Helps Cats to reach their bowls! </p>
+                <p> you need to use flex direction to control the direction of cats!</p>
+            </div>
+            <LevelMenu/>
         </div>
         <div v-if="showHint" class="group w-2/3 flex mx-auto gap-8 my-10 p-8 border-2 border-gray-600 text-gray-400 text-lg bg-gray-800">
             <p class="group-hover:hidden transition delay-700 duration-300 ease-in-out">
